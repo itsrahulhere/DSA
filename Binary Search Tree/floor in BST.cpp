@@ -14,6 +14,5 @@ int floorInBST(TreeNode<int> * root, int x)
             root=root->right;
     }
     
-    return floor;
-    
+    return floor;  
 }
