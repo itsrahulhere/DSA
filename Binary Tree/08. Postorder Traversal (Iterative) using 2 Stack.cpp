@@ -22,3 +22,28 @@
         }
         return ans;
     }
+
+//reversing the vector
+vector <int> postOrder(Node* root)
+{
+  // Your code here
+  vector<int> ans;
+  
+  stack<Node*> s1;
+  s1.push(root);
+  
+  while(!s1.empty())
+  {
+      Node* curr=s1.top();
+      s1.pop();
+      
+      ans.push_back(curr->data);
+      
+      if(curr->left)s1.push(curr->left);
+      if(curr->right)s1.push(curr->right);
+      
+  }
+  
+  reverse(ans.begin(),ans.end());
+  return ans;
+}
