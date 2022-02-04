@@ -1,15 +1,17 @@
-//Problem: https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+//Problem: https://practice.geeksforgeeks.org/problems/burning-tree/1#
 
-    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-       
-        //making parents
-        unordered_map<TreeNode*,TreeNode*>mp;
-        queue<TreeNode*>q;
+    int minTime(Node* root, int target) 
+    {
+        //storing parent in map & finding target Node
+        unordered_map<Node*,Node*>mp;
+        queue<Node*>q;
         q.push(root);
-        while(!q.empty())
-        {
-            TreeNode* parent=q.front();
+        Node*targetNode;
+        while(!q.empty()){
+            Node *parent=q.front();
             q.pop();
+            if(parent->data==target) 
+                targetNode=parent;
             if(parent->left){
                 mp[parent->left]=parent;
                 q.push(parent->left);
@@ -18,41 +20,40 @@
                 mp[parent->right]=parent;
                 q.push(parent->right);
             }
-        } 
+        }
         
-        //traverse upto distance K
-        unordered_map<TreeNode*,bool>vis;
-        q.push(target);
-        vis[target]=1;
-        int count=0;
+        //traverse from targetNode to whole tree
+        int ans=0;
+        unordered_map<Node*,bool>vis;
+        
+        q.push(targetNode);
+        vis[targetNode]=1;
+        
         while(!q.empty())
         {
             int size=q.size();
-            if(count++==k) break;
+            int fl=0;
             for(int i=0; i<size; i++)
             {
-                TreeNode* curr=q.front();
+                Node* curr=q.front();
                 q.pop();
                 if(curr->left && !vis[curr->left]){
+                    fl=1;
                     q.push(curr->left);
                     vis[curr->left]=1;
                 }
                 if(curr->right && !vis[curr->right]){
+                    fl=1;
                     q.push(curr->right);
                     vis[curr->right]=1;
                 }
                 if(mp[curr] && !vis[mp[curr]]){
+                    fl=1;
                     q.push(mp[curr]);
                     vis[mp[curr]]=1;
                 }
             }
-        }
-        
-        //traverse queue to store in ans
-        vector<int>ans;
-        while(!q.empty()){
-            ans.push_back(q.front()->val);
-            q.pop();
+            if(fl) ans++;
         }
         return ans;
     }
