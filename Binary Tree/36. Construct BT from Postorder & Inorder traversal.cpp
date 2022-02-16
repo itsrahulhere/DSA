@@ -16,7 +16,6 @@ class Solution {
         return root;
     }
     
-    
     public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
         unordered_map<int,int>map;
