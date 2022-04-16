@@ -1,4 +1,5 @@
 //Problem: https://practice.geeksforgeeks.org/problems/diameter-of-binary-tree/1
+//         https://leetcode.com/problems/diameter-of-binary-tree/
 
     int res(Node* root , int & ans)
     {
